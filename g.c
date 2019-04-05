@@ -1,18 +1,19 @@
 #include "all.h"
 
 int main(){
-	loginphase();
+	usercall();
 	start();
 
 	return 0;
 }
 
 void start(){
+	clearscreen();
 	head();
 	for(int i = 0;i<8;i++){
 		emptyborder();
 	}
-	for(int i = 0;i<12;i++){
+	for(int i = 0;i<20;i++){
 		emptyborder();
 	
 	}
@@ -29,7 +30,10 @@ void start(){
 			loginphase();
 			break;
 		case 'R':
-			regisphase();
+			if(counter.usercount >= Max_User)
+				userfull();
+			else
+				regisphase();
 			break;
 		case 'Q':
 			//quit program
@@ -42,6 +46,7 @@ void start(){
 }
 
 void home(){
+	clearscreen();
 	head();
 	emptyborder();
 	welcome();
@@ -51,7 +56,7 @@ void home(){
 	centertext("1. Dashboard");
 	centertext("2. Record your income");
 	centertext("3. See your plan");
-	centertext("4. Reset");
+	centertext("4. Account Setting");
 	for(int i = 0;i<12;i++){
 		emptyborder();
 	}

@@ -1,6 +1,7 @@
 #include "all.h"
 
 void Dashboard(){
+	clearscreen();
 	head();
 	for(int i = 0;i<8;i++){
 		emptyborder();

@@ -7,6 +7,7 @@
 
 #define screen_lenght 139
 #define Max_Record 100
+#define Max_User 50
 
 
 // header border text
@@ -18,33 +19,55 @@ void lefttext(char text[139]);
 void clearscreen();
 void bottomborder();
 void welcome();
+void logtext(char text[69], char inp[69]);
+void fullborder();
 
 
+// system
 // user login
 void loginphase();
 void regisphase();
-
-// system
+void regisload();
+void userfull();
+void loginfail();
+void loginload();
+// page
+void start();
+void home();
 void Dashboard();
 
 
-void home();
-void start();
+//call/create data
+void usercall();
+void createuser(char username[71], char password[71], char name[200], double balance);
+
+
 
 int checkerror; //to check error
 
 
 
-struct countrecord{ //number of record
-	int record;
+struct counter{ //count
+	int recordcount;
+	int	usercount;
+	int registercount;
 
-}countrecord;
+}counter;
 
 
 struct user{
+	char username[71];
+	char password[71];
 	char name[200];
-	long balance;
+	double balance;
 }user;
+
+struct usercheck{
+	char username[71];
+	char password[71];
+	char name[200];
+	double balance;
+}usercheck[Max_User];
 
 struct record{ //record INCOME/EXPENSE
 	int day;
