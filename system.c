@@ -32,7 +32,7 @@ void Dashboard(){
 			home();
 			break;
 		case 'Q':
-			//quit program
+			quit();
 			break;
 		default:
 			checkerror =1;

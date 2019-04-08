@@ -3,11 +3,13 @@
 #include <time.h>
 #include <string.h>
 #include <ctype.h>
+#include <unistd.h>
 
 
 #define screen_lenght 139
-#define Max_Record 100
+#define Max_Record 200
 #define Max_User 50
+
 
 
 // header border text
@@ -21,6 +23,7 @@ void bottomborder();
 void welcome();
 void logtext(char text[69], char inp[69]);
 void fullborder();
+void smallhead(char text[139]);
 
 
 // system
@@ -31,26 +34,40 @@ void regisload();
 void userfull();
 void loginfail();
 void loginload();
+void logout();
 // page
 void start();
 void home();
+void quit();
 void Dashboard();
 
+// record page
+void addrecord();
+void recordpage();
 
-//call/create data
+
+// call/create data
 void usercall();
 void createuser(char username[71], char password[71], char name[200], double balance);
+void creatfilename();
+void recordcall();
+void userwrite();
+void recordwrite();
+void get_time();
 
 
 
 int checkerror; //to check error
 
+char filename[100]; //to create user record file
+
+int userorder; // User order
 
 
 struct counter{ //count
 	int recordcount;
-	int	usercount;
-	int registercount;
+	int usercount;
+	int phasecount;
 
 }counter;
 
@@ -60,14 +77,9 @@ struct user{
 	char password[71];
 	char name[200];
 	double balance;
-}user;
+}user, usercheck[Max_User]; // current user || checkuser for save login register 
 
-struct usercheck{
-	char username[71];
-	char password[71];
-	char name[200];
-	double balance;
-}usercheck[Max_User];
+
 
 struct record{ //record INCOME/EXPENSE
 	int day;
@@ -80,4 +92,14 @@ struct record{ //record INCOME/EXPENSE
 	double income;
 	double expense;
 	double balance;
-}record[Max_Record];
+}record[Max_Record], inprecord, saverec;// save all record || input a new record || save record
+
+
+struct time{
+	int day;
+	int month;
+	int year;
+	int hour;
+	int min;
+	int sec;
+}times;

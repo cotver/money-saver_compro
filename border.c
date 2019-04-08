@@ -66,3 +66,9 @@ void welcome(){
 void logtext(char text[69], char inp[69]){
 	printf("|%68s %-70s|\n", text, inp);
 }
+
+void smallhead(char text[139]){
+	fullborder();
+	centertext(text);
+	fullborder();
+}

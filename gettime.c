@@ -28,26 +28,10 @@ void get_time(){
     month = local->tm_mon + 1;   	// get month of year (0 to 11)
     year = local->tm_year + 1900;	// get year since 1900
 
-	// print local time
-		printf("Time is : %02d:%02d:%02d \n", hours, minutes, seconds);
-
-	// print current date
-	printf("Date is : %02d/%02d/%d\n", day, month, year);
-
-	FILE *fp;
-
-    fp = fopen("data/example.txt", "w+");
-    fprintf(fp, "%02d:%02d:%d\n", day, month, year);
-    fprintf(fp, "%02d:%02d:%d\n", day, month, year-1);
-    fprintf(fp, "%02d:%02d:%d\n", day, month, year-2);
-    fclose(fp);
-    
-    int d,m,y;
-
-    fp = fopen("data/example.txt", "r");
-    while(!feof(fp)){
-    fscanf(fp, "%d:%d:%d\n", &d, &m, &y);
-    printf("Date is : %02d:%02d:%d\n", d, m, y); 
-}
-    fclose(fp);
+	times.day = day;
+	times.month = month;
+	times.year = year;
+	times.hour = hours;
+	times.min = minutes;
+	times.sec = seconds;
 }

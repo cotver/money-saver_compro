@@ -15,32 +15,34 @@ void loginphase(){
     }
     bottomborder();
     
-    switch(counter.registercount){
+    switch(counter.phasecount){
         case 0:
             printf("Enter your username: ");
             scanf("\n%s", user.username);
-            counter.registercount++;
+            counter.phasecount++;
             loginphase();
             break;
         case 1:
             printf("Enter your password: ");
             scanf("\n%s", user.password);
-            counter.registercount++;
+            counter.phasecount++;
             loginphase();
             break;
         default:
-            counter.registercount=0;
+            counter.phasecount=0;
             for(int i=0;i<counter.usercount;i++){
                 if(strcmp(usercheck[i].username, user.username)==0){
                     if(strcmp(usercheck[i].password, user.password)==0){
                         strcpy(user.name, usercheck[i].name);
                         user.balance = usercheck[i].balance;
+
+                        userorder = i;
+
                         loginload();
-                    }else
-                        loginfail();
-                }else
-                    loginfail();
+                    }
+                }     
             }
+            loginfail();
             
     }
 
@@ -57,7 +59,7 @@ void loginload(){
     for(int i = 0;i<3;i++){
         emptyborder();
     }
-    if(counter.registercount == 1){
+    if(counter.phasecount == 1){
         printf("|                                                                         ****                                                              |\n");
         printf("|                                                                        ****                                                               |\n");
         printf("|                                                                       ****                                                                |\n");
@@ -66,7 +68,7 @@ void loginload(){
         printf("|                                                                  ******                                                                   |\n");
         printf("|                                                                   ****                                                                    |\n");
     }
-    else if(counter.registercount == 0){
+    else if(counter.phasecount == 0){
         emptyborder();
         emptyborder();
         printf("|                                                                *    *    *                                                                |\n");
@@ -74,26 +76,26 @@ void loginload(){
         printf("|                                                                *    *    *                                                                |\n");
         emptyborder();
         emptyborder();
+        creatfilename();
+        recordcall();
     }
     for(int i = 0;i<5;i++){
         emptyborder();
     }
     bottomborder();
     sleep(2);
-    if(counter.registercount == 1){
-        counter.registercount =0;
+    if(counter.phasecount == 1){
+        counter.phasecount =0;
         home();
     }
     else{
-        counter.registercount++;
+        counter.phasecount++;
         loginload();
     }
 }
 void loginfail(){
     clearscreen();
-    fullborder();
-    centertext("Oops !!!");
-    fullborder();
+    smallhead("Oops !!!");
     emptyborder();
     emptyborder();
     centertext("Your username or password is incorrect.");
@@ -139,15 +141,15 @@ void regisphase(){
 
     checkerror = 0;
 
-    switch(counter.registercount){
+    switch(counter.phasecount){
         case 0:
             printf("Enter your username: ");
             scanf("\n%s", user.username);
-            counter.registercount++;
-            for(int i=0;i<counter.usercount;i++){
+            counter.phasecount++;
+            for(int i=0; i< counter.usercount; i++){
                 if(strcmp(usercheck[i].username, user.username)==0){
                     checkerror = 1;
-                    counter.registercount--;
+                    counter.phasecount--;
                     strcpy(user.username, "");
                     break;
                 }
@@ -157,18 +159,21 @@ void regisphase(){
         case 1:
             printf("Enter your password: ");
             scanf("\n%s", user.password);
-            counter.registercount++;
+            counter.phasecount++;
             regisphase();
             break;
         case 2:
             printf("Enter your full name: ");
             scanf("\n%[^\n]", user.name);
-            counter.registercount++;
+            counter.phasecount++;
             regisphase();
             break;
         default:
-            counter.registercount=0;
+            counter.phasecount=0;
             user.balance = 0;
+
+            userorder = counter.usercount;
+
             regisload();
     }
 }
@@ -191,24 +196,28 @@ void regisload(){
     for(int i = 0;i<3;i++){
         emptyborder();
     }
-    if(counter.registercount >=3){
+    if(counter.phasecount >=3){
         printf("|                                                                    ***                                                                    |\n");
         printf("|                                                                   *****                                                                   |\n");
+        recordcall();
     }
     else{
         emptyborder();
         emptyborder();
     }
-    if(counter.registercount >=2){
+    if(counter.phasecount >=2){
         printf("|                                                                    ***                                                                    |\n");
         printf("|                                                                  *******                                                                  |\n");
-        createuser(user.username, user.password, user.name, user.balance);
+        if(counter.phasecount==2){
+            createuser(user.username, user.password, user.name, user.balance);
+            creatfilename();
+        }
     }
     else{
         emptyborder();
         emptyborder();
     }
-    if(counter.registercount >=1){
+    if(counter.phasecount >=1){
         printf("|                                                                 *********                                                                 |\n");
         printf("|                                                                 *********                                                                 |\n");
     }
@@ -216,18 +225,18 @@ void regisload(){
         emptyborder();
         emptyborder();
     }
-    if(counter.registercount >=0){
+    if(counter.phasecount >=0){
         printf("|                                                                 *********                                                                 |\n");
     }
     for(int i = 0;i<2;i++){
         emptyborder();
     }
     bottomborder();
-    counter.registercount++;
+    counter.phasecount++;
     sleep(2);
 
-    if(counter.registercount >=4){
-        counter.registercount =0;
+    if(counter.phasecount >=4){
+        counter.phasecount =0;
         home();
     } 
     else
@@ -236,9 +245,7 @@ void regisload(){
 
 void userfull(){
     clearscreen();
-    fullborder();
-    centertext("Oops !!!");
-    fullborder();
+    smallhead("Oops !!!");
     emptyborder();
     emptyborder();
     centertext("Sorry, our account is full.");
@@ -260,11 +267,36 @@ void userfull(){
             start();
             break;
         case 'Q':
-            //dosomething
+            quit();
             break;
         default:
             checkerror =1;
             userfull();
 
     }
+}
+
+void logout(){
+    clearscreen();
+    head();
+    emptyborder();
+    for(int i = 0;i<13;i++){
+        emptyborder();
+    }
+    centertext("We are logging you out.");
+    emptyborder();
+    centertext("Please wait");
+    for(int i = 0;i<14;i++){
+        emptyborder();
+    }
+    bottomborder();
+
+
+    strcpy(filename, "") ;// clear old user
+    strcpy(user.username, "");// clear old user
+    strcpy(user.password, "");// clear old user
+    strcpy(user.name, "");// clear old user
+
+    sleep(5);
+    start();
 }
