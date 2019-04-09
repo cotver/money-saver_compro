@@ -91,7 +91,7 @@ void recordwrite(){
 	FILE *rec;
     rec = fopen(filename, "w");
     for(i=0; i < counter.recordcount; i++){
-    	fprintf(rec, "%d/%d/%d\t%d:%d:%d\t%s\t%.2lf\t%.2lf\t%.2lf\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
+    	fprintf(rec, "%02d/%02d/%02d\t%02d:%02d:%02d\t%s\t%.2lf\t%.2lf\t%.2lf\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
     }
     fclose(rec);
 }

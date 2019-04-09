@@ -24,6 +24,7 @@ void welcome();
 void logtext(char text[69], char inp[69]);
 void fullborder();
 void smallhead(char text[139]);
+void userhead();
 
 
 // system
@@ -40,6 +41,7 @@ void start();
 void home();
 void quit();
 void Dashboard();
+void dashpage(int page, int pages);
 
 // record page
 void addrecord();

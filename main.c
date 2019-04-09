@@ -66,9 +66,7 @@ void home(){
 	centertext("Type \"O\" to Logout || Type \"Q\" to Quit");
 	bottomborder();
 
-	for(int i=0;i<counter.recordcount;i++){
-		printf("%02d/%02d/%04d\t%02d:%02d:%02d\t%50s\t%10.2lf\t%10.2lf\t%10.2lf\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
-	}
+	
 	char inp;
 	printf(">> ");
 	scanf("\n%c", &inp);

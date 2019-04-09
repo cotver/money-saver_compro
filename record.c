@@ -8,7 +8,7 @@ void recordpage(){
     }
     if(counter.phasecount == 0){
     	centertext("Please Enter your description for your record");
-    	emptyborder();
+    	centertext("(Up to 50 character)");
     }
     else if(counter.phasecount == 1){
     	centertext("Please Enter your amont");
