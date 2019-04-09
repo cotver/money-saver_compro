@@ -66,3 +66,179 @@ void dashpage(int page, int pages){
 
 }
 
+void accountset(){
+	clearscreen();
+	head();
+	emptyborder();
+	for(int i = 0;i<13;i++){
+		emptyborder();
+	}
+	centertext("1. Change your password");
+	centertext("2. Delete account");
+	for(int i = 0;i<12;i++){
+		emptyborder();
+	}
+
+	checkerror == 1 ? centertext("Invalid response. Please try again."):emptyborder();
+	emptyborder();
+	centertext("Type \"B\" to Back || Type \"Q\" to Quit");
+	bottomborder();
+
+	
+	char inp;
+	printf(">> ");
+	checkerror = 0;
+	scanf("\n%c", &inp);
+	switch(toupper(inp)){
+		case '1':
+			passwordchange();
+			break;
+		case '2':
+			arerusure();
+			break;
+		case 'B':
+			home();
+			break;
+		case 'Q':
+			quit();
+			break;
+		default:
+			checkerror =1;
+			accountset();
+
+	}
+}
+
+void passwordchange(){
+	char password[71], newpass[71], confirm[71];
+	while(1){
+		if(strcmp(password, "\\\\C")==0 || strcmp(password, "\\\\c")==0 || strcmp(newpass, "\\\\C")==0|| strcmp(newpass, "\\\\c")==0|| strcmp(confirm, "\\\\C")==0 || strcmp(confirm, "\\\\c")==0){
+			checkerror = 0;
+			accountset();
+		}
+		clearscreen();
+		smallhead("Change password");
+		for(int i = 0;i<14;i++){
+       		emptyborder();
+    	}
+    	if(counter.phasecount == 0){
+    		centertext("Enter your password");
+    	}
+    	else if(counter.phasecount == 1){
+    		centertext("Enter your new password");
+    	}
+    	else if(counter.phasecount == 2){
+    		centertext("Confirm your new password");
+    	}
+    	else{
+    		centertext("success");
+    	}
+    	for(int i = 0;i<16;i++){
+        	emptyborder();
+    	}
+    	checkerror == 1 ? counter.phasecount == 0 ? centertext("Wrong password"): centertext("Passwords do not match"):emptyborder();
+    	emptyborder();
+    	centertext("Type \"\\\\C\" to Cancel");
+    	bottomborder();
+
+    	checkerror = 0;
+    	if(counter.phasecount > 2){
+    		strcpy(user.password, newpass);
+    		strcpy(usercheck[userorder].password, newpass);
+    		userwrite();
+    		sleep(3);
+    	}
+    	else{
+    		printf(">> ");
+    	}
+		switch(counter.phasecount){
+			case 0:
+				scanf("\n%s", password);
+				counter.phasecount++;
+				if(strcmp(password, user.password)!=0){
+					counter.phasecount--;
+					checkerror = 1;
+				}
+				break;
+			case 1:
+				scanf("\n%s", newpass);
+				counter.phasecount++;
+				break;
+			case 2:
+				scanf("\n%s", confirm);
+				counter.phasecount++;
+				if(strcmp(newpass, confirm)!=0){
+					counter.phasecount-=2;
+					checkerror = 1;
+				}
+				break;
+			default:
+			counter.phasecount=0;
+			accountset();
+		}
+	}
+}
+
+
+void arerusure(){
+	clearscreen();
+	smallhead("Are you Sure");
+	for(int i = 0;i<14;i++){
+        emptyborder();
+    }
+    centertext("All your activities will be deleted.");
+    centertext("Are you Sure?");
+    emptyborder();
+    centertext("< Y/N >");
+    for(int i = 0;i<14;i++){
+        emptyborder();
+    }
+    checkerror == 1 ? centertext("Invalid input. Please Try Again"):emptyborder();
+    emptyborder();
+    bottomborder();
+
+    char inp;
+	printf(">> ");
+	checkerror = 0;
+	scanf("\n%c", &inp);
+	switch(toupper(inp)){
+		case 'Y':
+			goodbye();
+			break;
+		case 'N':
+			accountset();
+			break;
+		default:
+			checkerror =1;
+			accountset();
+
+	}
+}
+
+void goodbye(){
+	char name[100];
+	strcpy(name, user.name);
+	clearscreen();
+	smallhead("Good Bye");
+	for(int i = 0;i<14;i++){
+        emptyborder();
+    }
+    centertext("Good Bye");
+    emptyborder();
+    centertext(name);
+    emptyborder();
+    centertext("We will miss you");
+    for(int i = 0;i<15;i++){
+        emptyborder();
+    }
+    bottomborder();
+    deleteAccount();
+
+    strcpy(filename, "") ;// clear old user
+    strcpy(user.username, "");// clear old user
+    strcpy(user.password, "");// clear old user
+    strcpy(user.name, "");// clear old user
+
+    sleep(5);
+    start();
+}

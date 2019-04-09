@@ -82,7 +82,7 @@ void home(){
 			//dosomething
 			break;
 		case '4':
-			//dosomething
+			accountset();
 			break;
 		case 'O':
 			logout();
