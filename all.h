@@ -42,13 +42,17 @@ void home();
 void quit();
 void Dashboard();
 void dashpage(int page, int pages);
+void accountset();
+void passwordchange();
+void arerusure();
+void goodbye();
 
 // record page
 void addrecord();
 void recordpage();
 
 
-// call/create data
+// call/create/delete data
 void usercall();
 void createuser(char username[71], char password[71], char name[200], double balance);
 void creatfilename();
@@ -56,6 +60,7 @@ void recordcall();
 void userwrite();
 void recordwrite();
 void get_time();
+void deleteAccount();
 
 
 

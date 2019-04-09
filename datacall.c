@@ -85,7 +85,6 @@ void recordcall(){
 
 
 
-
 void recordwrite(){
 	int i;
 	FILE *rec;
@@ -94,4 +93,18 @@ void recordwrite(){
     	fprintf(rec, "%02d/%02d/%02d\t%02d:%02d:%02d\t%s\t%.2lf\t%.2lf\t%.2lf\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
     }
     fclose(rec);
+}
+
+void deleteAccount(){
+	int i;
+	FILE *us;
+    us = fopen("data/user.txt", "w");
+    for(i = 0; i < counter.usercount; i++){
+    	if(strcmp(usercheck[i].username, user.username)!=0){
+    		fprintf(us, "%s\t%s\t%s\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance);
+    	}
+    }
+    fclose(us);
+    remove(filename);
+    usercall();
 }

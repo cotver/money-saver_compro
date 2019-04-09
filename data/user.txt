@@ -1,2 +1,3 @@
 admin	admin	admin	1000001.00
 test	test	test	900.00
+test2	test2	test2	0.00
