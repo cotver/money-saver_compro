@@ -1,6 +1,6 @@
 compiler = gcc
 versions = -std=c99
-object = main.o border.o gettime.o login.o system.o datacall.o record.o
+object = main.o border.o gettime.o login.o system.o datacall.o record.o plan.o
 exec_file = a
 
 $(exec_file): $(object)
@@ -27,6 +27,9 @@ datacall.o: datacall.c all.h
 
 record.o: record.c all.h
 	$(compiler) $(versions) -c record.c
+
+plan.o: plan.c all.h
+	$(compiler) $(versions) -c plan.c
 
 .PHONY : clean
 

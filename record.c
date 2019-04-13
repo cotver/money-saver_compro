@@ -21,7 +21,7 @@ void recordpage(){
     for(int i = 0;i<16;i++){
         emptyborder();
     }
-    checkerror == 1 ? centertext("Invalid input. Please Try Again"):emptyborder();
+    checkerror == 1 ? inprecord.income == 0? centertext("Invalid input. Please Try Again"):centertext("You don't have enough money. Please Try Again"):emptyborder();
     emptyborder();
     bottomborder();
     if(counter.phasecount >= 2){
@@ -55,12 +55,18 @@ void recordpage(){
 			scanf("\n%lf", &inprecord.income);
 			counter.phasecount++;
 			if(inprecord.income==0){
-				checkerror++;
+				checkerror=1;
 				counter.phasecount--;
 			}
 			else if(inprecord.income < 0){
-				inprecord.expense = inprecord.income*-1;
-				inprecord.income = 0;
+				if(inprecord.income*-1 > user.balance){
+					checkerror=1;
+					counter.phasecount--;
+				}
+				else{
+					inprecord.expense = inprecord.income*-1;
+					inprecord.income = 0;
+				}
 			}
 			else{
 				inprecord.expense =0;
@@ -69,7 +75,6 @@ void recordpage(){
 			break;
 		default:
 			counter.phasecount =0;
-			printf("%d\n", counter.recordcount);
 			home();
 
 	}

@@ -78,6 +78,7 @@ void loginload(){
         emptyborder();
         creatfilename();
         recordcall();
+        plancall();
     }
     for(int i = 0;i<5;i++){
         emptyborder();
@@ -171,6 +172,7 @@ void regisphase(){
         default:
             counter.phasecount=0;
             user.balance = 0;
+            user.savingbalance = 0;
 
             userorder = counter.usercount;
 
@@ -200,6 +202,7 @@ void regisload(){
         printf("|                                                                    ***                                                                    |\n");
         printf("|                                                                   *****                                                                   |\n");
         recordcall();
+        plancall();
     }
     else{
         emptyborder();
@@ -293,6 +296,7 @@ void logout(){
 
 
     strcpy(filename, "") ;// clear old user
+    strcpy(planfilename, "") ;// clear old user
     strcpy(user.username, "");// clear old user
     strcpy(user.password, "");// clear old user
     strcpy(user.name, "");// clear old user

@@ -55,9 +55,10 @@ void home(){
 	}
 	centertext("1. Dashboard");
 	centertext("2. Record your income");
-	centertext("3. See your plan");
-	centertext("4. Account Setting");
-	for(int i = 0;i<12;i++){
+	centertext("3. See your savings account");
+	centertext("4. transfer to savings account");
+	centertext("5. Account Setting");
+	for(int i = 0;i<11;i++){
 		emptyborder();
 	}
 
@@ -79,9 +80,12 @@ void home(){
 			recordpage();
 			break;
 		case '3':
-			//dosomething
+			savingaccount();
 			break;
 		case '4':
+			//dosomething
+			break;
+		case '5':
 			accountset();
 			break;
 		case 'O':

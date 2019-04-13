@@ -41,10 +41,10 @@ void Dashboard(){
 void dashpage(int page, int pages){
 
 	clearscreen();
-	userhead();
+	userhead("Your Balance", user.balance);
 	printf("| Date         | Time         | Description                                                  | Income       | Expenses     | Balance        |\n");
 	fullborder();
-	if(page == pages || pages == 0){
+	if((page == pages || pages == 0) && counter.recordcount%25!=0){
 		for(int i = (page-1)*25;i<counter.recordcount;i++){
 			printf("| %02d/%02d/%04d   | %02d:%02d:%02d     | %-61s| %13.2lf| %13.2lf| %15.2lf|\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
 		}
@@ -235,6 +235,7 @@ void goodbye(){
     deleteAccount();
 
     strcpy(filename, "") ;// clear old user
+    strcpy(planfilename, "") ;// clear old user
     strcpy(user.username, "");// clear old user
     strcpy(user.password, "");// clear old user
     strcpy(user.name, "");// clear old user

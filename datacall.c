@@ -2,7 +2,7 @@
 
 char folder[]="data/user/"; //to create user record file
 char sname[]=".txt"; //to create user record file
-
+char splan[]="plan"; //to create user plan file
 
 //check flie exist or not
 int exists(const char *fname){
@@ -17,9 +17,14 @@ int exists(const char *fname){
 
 // create filename for each user
 void creatfilename(){
-	strcat(filename,folder);
-	strcat(filename,user.username);
-	strcat(filename,sname);
+	strcat(filename, folder); //record file
+	strcat(filename, user.username);
+	strcat(filename, sname);
+
+	strcat(planfilename, folder);//plan file
+	strcat(planfilename, user.username);
+	strcat(planfilename, splan);
+	strcat(planfilename, sname);
 }
 
 
@@ -31,7 +36,7 @@ void usercall(){
 	int i=0;
 	FILE *us;
     us = fopen("data/user.txt", "r");
-    while(fscanf(us, "%s\t%s\t%[^\t]\t%lf", usercheck[i].username, usercheck[i].password, usercheck[i].name, &usercheck[i].balance) != EOF){
+    while(fscanf(us, "%s\t%s\t%[^\t]\t%lf\t%lf", usercheck[i].username, usercheck[i].password, usercheck[i].name, &usercheck[i].balance, &usercheck[i].savingbalance) != EOF){
     	i++;
     }
     fclose(us);
@@ -44,16 +49,11 @@ void createuser(char username[71], char password[71], char name[200], double bal
 	strcpy(usercheck[counter.usercount].password, user.password);
 	strcpy(usercheck[counter.usercount].name, user.name);
 	usercheck[counter.usercount].balance = user.balance;
+	usercheck[counter.usercount].savingbalance = user.savingbalance;
 
 	counter.usercount++;
-	
-	FILE *us;
-    us = fopen("data/user.txt", "w");
-    for(int i=0; i<counter.usercount; i++){
-    	fprintf(us, "%s\t%s\t%s\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance);
-    }
-    fclose(us);
-    
+
+	userwrite();
 }
 
 
@@ -62,7 +62,7 @@ void userwrite(){
 	FILE *us;
     us = fopen("data/user.txt", "w");
     for(i = 0; i < counter.usercount; i++){
-    	fprintf(us, "%s\t%s\t%s\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance);
+    	fprintf(us, "%s\t%s\t%s\t%.2lf\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance, usercheck[i].savingbalance);
     }
     fclose(us);
 }
@@ -95,16 +95,43 @@ void recordwrite(){
     fclose(rec);
 }
 
+
+void plancall(){
+	if(!exists(planfilename)){
+    	fopen(planfilename, "w");
+	}
+
+    int i=0;
+	FILE *pla;
+    pla = fopen(planfilename, "r");
+    while(fscanf(pla, "%lf\t%[^\t]\t%lf", &plan[i].goal, plan[i].description, &plan[i].current) != EOF){
+    	i++;
+    }
+    fclose(pla);
+    counter.plancount = i;
+}
+
+void planwrite(){
+	int i=0;
+	FILE *pla;
+    pla = fopen(planfilename, "w");
+    for(i=0; i < counter.plancount; i++){
+    	fprintf(pla, "%.2lf\t%s\t%.2lf\n", plan[i].goal, plan[i].description, plan[i].current);
+    }
+    fclose(pla);
+}
+
 void deleteAccount(){
 	int i;
 	FILE *us;
     us = fopen("data/user.txt", "w");
     for(i = 0; i < counter.usercount; i++){
     	if(strcmp(usercheck[i].username, user.username)!=0){
-    		fprintf(us, "%s\t%s\t%s\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance);
+    		fprintf(us, "%s\t%s\t%s\t%.2lf\t%.2lf\n", usercheck[i].username, usercheck[i].password, usercheck[i].name, usercheck[i].balance, usercheck[i].savingbalance);
     	}
     }
     fclose(us);
     remove(filename);
+    remove(planfilename);
     usercall();
 }
