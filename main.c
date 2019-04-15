@@ -83,7 +83,7 @@ void home(){
 			savingaccount();
 			break;
 		case '4':
-			//dosomething
+			deposit();
 			break;
 		case '5':
 			accountset();

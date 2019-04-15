@@ -22,6 +22,9 @@ void savingaccount(){
 		}
 		else{
 			switch(toupper(inp)){
+			case 'W':
+				withdraw();
+				break;
 			case 'P':
 				if(counter.plancount >= Max_Plan){
 					planfull();
@@ -31,7 +34,7 @@ void savingaccount(){
 				}
 				break;
 			case 'E':
-				planselect();
+				EditPlan();
 				break;
 			case 'B':
 				home();
@@ -103,7 +106,7 @@ void savingpage(int page, int pages){
 			fullsmallborder();
 		}
 	}
-	emptyborder();
+	centertext("Type \"W\" to Withdraw");
 	centertext("Type \"P\" to Create your plan || Type \"E\" to Edit your plan");
 	fullborder();
 	checkerror == 1 ? centertext("Invalid response. Please try again."):emptyborder();
@@ -192,7 +195,7 @@ void planfull(){
     checkerror = 0;
     switch(toupper(inp)){
         case 'E':
-
+        	EditPlan();
             break;
         case 'B':
             savingaccount();
@@ -204,15 +207,396 @@ void planfull(){
     }
 }
 
-void planselect(){
+
+void EditPlan(){
+	int select = planselect();
+	while(1){
+		clearscreen();
+		smallhead("Edit your plan");
+		emptyborder();
+		centertext(plan[select].description);
+		for(int i = 0;i<12;i++){
+    	    emptyborder();
+    	}
+   		centertext("1. Edit Plan Description");
+   		centertext("2. Edit Plan Goal");
+   		centertext("3. Delete this plan");
+    	plan[select].goal == plan[select].current ? centertext("4. Finish this plan"):emptyborder();
+    	for(int i = 0;i<13;i++){
+    	    emptyborder();
+    	}
+    	checkerror == 1 ? centertext("Invalid input. Please Try Again"):emptyborder();
+    	emptyborder();
+    	centertext("Type \"B\" to Back");
+    	bottomborder();
+    	checkerror=0;
+    	char inp;
+    	printf(">> ");
+    	scanf("\n%c", &inp);
+    	if(isdigit(inp)){
+        	switch(inp-48){
+				case 1:
+					editdescription(select);
+					break;
+				case 2:
+					editgoal(select);
+					break;
+				case 3:
+					deleteplan(select);
+					editsuccess();
+					savingaccount();
+					break;
+				case 4:
+					if(plan[select].goal == plan[select].current){
+						user.savingbalance -= plan[select].goal;
+						usercheck[userorder].savingbalance -= plan[select].goal;
+						userwrite();
+						deleteplan(select);
+						editsuccess();
+						savingaccount();
+					}
+					else{
+						checkerror=1;
+					}
+					break;
+				default:
+					checkerror=1;
+    		}
+    	}
+		else{
+			switch(toupper(inp)){
+				case 'B':
+					savingaccount();
+					break;
+				default:
+					checkerror=1;
+    				EditPlan();
+
+			}
+		}
+	}
+}
+
+void editgoal(int select){
+	double newgoal;
+	char old[100];
+	sprintf(old, "(your old goal: %.2lf)", plan[select].goal);
+	clearscreen();
+	smallhead("Edit your plan");
+	for(int i = 0;i<16;i++){
+    	emptyborder();
+    }
+    centertext("Please Enter your new goal");
+    centertext(old);
+    for(int i = 0;i<14;i++){
+    	emptyborder();
+    }
+    checkerror == 1 ? centertext("Invalid response. Please try again."):emptyborder();
+    emptyborder();
+    bottomborder();
+    checkerror = 0;
+    printf(">> ");
+    scanf("\n%lf", &newgoal);
+    if(newgoal<=0){
+    	checkerror =1;
+    	editgoal(select);
+    }
+    else{
+    	if(newgoal < plan[select].current){
+    		plan[select].current = newgoal;
+    	}
+    	plan[select].goal = newgoal;
+    	planwrite();
+    	editsuccess();
+		savingaccount();
+    }
+}
+
+void editdescription(int select){
+	char newdescription[50], old[100];
+	sprintf(old, "(your old description: %s)", plan[select].description);
+	clearscreen();
+	smallhead("Edit your plan");
+	for(int i = 0;i<16;i++){
+    	emptyborder();
+    }
+    centertext("Please Enter your new description");
+    centertext(old);
+    for(int i = 0;i<16;i++){
+    	emptyborder();
+    }
+    bottomborder();
+
+    printf(">> ");
+    scanf("\n%[^\n]", newdescription);
+
+    strcpy(plan[select].description, newdescription);
+    planwrite();
+    editsuccess();
+	savingaccount();
+}
+
+void editsuccess(){
+	clearscreen();
+	smallhead("Edit your plan");
+	for(int i = 0;i<16;i++){
+    	emptyborder();
+    }
+    centertext("Success");
+    for(int i = 0;i<17;i++){
+    	emptyborder();
+    }
+    bottomborder();
+    sleep(1);
+}
+
+int planselect(){
 	char planname[100];
+	clearscreen();
+	smallhead("Edit your plan");
+	for(int i = 0;i<11;i++){
+    	emptyborder();
+    }
 	emptyborder();
 	centertext("Select your plan");
 	emptyborder();
 	for(int i=0; i<counter.plancount; i++){
-		strcpy(planname, "");
-		sprintf(planname, "%d. ", i+1);
-		strcat(planname, plan[i].description);
+		sprintf(planname, "%d. %s", i+1, plan[i].description);
 		centertext(planname);
+	}
+	for(int i = 0;i<17-counter.plancount;i++){
+    	emptyborder();
+    }
+    checkerror == 1 ? centertext("Invalid response. Please try again."):emptyborder();
+    emptyborder();
+    centertext("Type \"B\" to Back");
+    bottomborder();
+    checkerror=0;
+    char inp;
+    printf(">> ");
+    scanf("\n%c", &inp);
+    if(isdigit(inp)){
+        if(inp-48 >= 1 && inp-48 <= counter.plancount) {
+            return inp-48-1;
+        } 
+        else {
+            checkerror =1;
+            planselect();   
+            }
+		}
+	else{
+		switch(toupper(inp)){
+			case 'B':
+				savingaccount();
+				break;
+			default:
+				checkerror=1;
+    			planselect();
+
+		}
+	}
+}
+
+
+void withdraw(){
+	double amount, sumofplan=0;
+	char description[60], maxinp[50];
+	for(int i = 0; i < counter.plancount; i++){
+		sumofplan += plan[i].current;
+	}
+	sprintf(maxinp, "(Max %.2lf)", user.savingbalance - sumofplan);
+	while(1){
+		clearscreen();
+		smallhead("Withdraw");
+		for(int i = 0;i<14;i++){
+    	    emptyborder();
+    	}
+    	if(counter.phasecount == 0){
+   		 	centertext("Please Enter your amount");
+    		centertext(maxinp);
+    	}
+    	else{
+    		centertext("success");
+    		emptyborder();
+    	}
+    	for(int i = 0;i<16;i++){
+    	    emptyborder();
+    	}
+    	checkerror == 1 ? amount < 0? centertext("Invalid input. Please Try Again"):centertext("You don't have enough money. Please Try Again"):emptyborder();
+    	emptyborder();
+    	bottomborder();
+    	if(counter.phasecount >= 1){
+    		sprintf(description, "Withdraw from Savings Account");
+    		user.savingbalance -= amount;
+    		usercheck[userorder].savingbalance -= amount;
+    		user.balance += amount;
+    		usercheck[userorder].balance += amount;
+
+    		get_time();
+    		inprecord.day = times.day;
+			inprecord.month = times.month;
+			inprecord.year = times.year;
+			inprecord.hour = times.hour;
+			inprecord.min = times.min;
+			inprecord.sec = times.sec;
+			strcpy(inprecord.description, description);
+    		inprecord.income = amount;
+    		inprecord.expense = 0;
+    		inprecord.balance = user.balance;
+    		addrecord();
+			recordwrite();
+    		userwrite();
+
+    		sleep(2);
+    	}
+    	else{
+    		printf(">> ");
+    	}
+    	checkerror = 0;
+    	switch(counter.phasecount){
+			case 0:
+				scanf("\n%lf", &amount);
+				counter.phasecount++;
+				if(amount < 0 || amount > user.savingbalance - sumofplan){
+					checkerror=1;
+					counter.phasecount--;
+				}
+				break;
+			default:
+				counter.phasecount =0;
+				savingaccount();
+
+		}
+	}
+}
+
+
+void deposit(){
+	int select = depositplanselect();
+	double amount;
+	char description[60], maxinp[50];
+	sprintf(maxinp, "(Max %.2lf)", user.balance);
+	while(1){
+		clearscreen();
+		smallhead("Deposit");
+		for(int i = 0;i<14;i++){
+    	    emptyborder();
+    	}
+    	if(counter.phasecount == 0){
+   		 	centertext("Please Enter your amount");
+    		centertext(maxinp);
+    	}
+    	else{
+    		centertext("success");
+    		emptyborder();
+    	}
+    	for(int i = 0;i<16;i++){
+    	    emptyborder();
+    	}
+    	checkerror == 1 ? amount < 0? centertext("Invalid input. Please Try Again"):centertext("You don't have enough money. Please Try Again"):emptyborder();
+    	emptyborder();
+    	bottomborder();
+    	if(counter.phasecount >= 1){
+    		if(select>=0){
+    			sprintf(description, "For %s", plan[select].description);
+    		}
+    		else{
+    			sprintf(description, "For %s", "Savings");
+    		}
+    		user.savingbalance += amount;
+    		usercheck[userorder].savingbalance += amount;
+    		user.balance -= amount;
+    		usercheck[userorder].balance -= amount;
+
+    		get_time();
+    		inprecord.day = times.day;
+			inprecord.month = times.month;
+			inprecord.year = times.year;
+			inprecord.hour = times.hour;
+			inprecord.min = times.min;
+			inprecord.sec = times.sec;
+			strcpy(inprecord.description, description);
+    		inprecord.income = 0;
+    		inprecord.expense = amount;
+    		inprecord.balance = user.balance;
+    		addrecord();
+			recordwrite();
+    		userwrite();
+    		if(plan[select].current + amount > plan[select].goal){
+    			plan[select].current += plan[select].goal - plan[select].current;
+    		}
+    		else{
+    			plan[select].current += amount;
+    		}
+    		planwrite();
+    		sleep(2);
+    	}
+    	else{
+    		printf(">> ");
+    	}
+    	checkerror = 0;
+    	switch(counter.phasecount){
+			case 0:
+				scanf("\n%lf", &amount);
+				counter.phasecount++;
+				if(amount < 0 || amount > user.balance){
+					checkerror=1;
+					counter.phasecount--;
+				}
+				break;
+			default:
+				counter.phasecount =0;
+				home();
+
+		}
+	}
+	
+}
+
+int depositplanselect(){
+	char planname[100];
+	clearscreen();
+	smallhead("Deposit");
+	for(int i = 0;i<10;i++){
+    	emptyborder();
+    }
+	emptyborder();
+	centertext("Select your plan");
+	emptyborder();
+	centertext("1. For Savings");
+	for(int i=0; i<counter.plancount; i++){
+		sprintf(planname, "%d. For %s", i+2, plan[i].description);
+		centertext(planname);
+	}
+	for(int i = 0;i<17-counter.plancount;i++){
+    	emptyborder();
+    }
+    checkerror == 1 ? centertext("Invalid response. Please try again."):emptyborder();
+    emptyborder();
+    centertext("Type \"B\" to Back");
+    bottomborder();
+    checkerror=0;
+    char inp;
+    printf(">> ");
+    scanf("\n%c", &inp);
+    if(isdigit(inp)){
+        if(inp-48 >= 1 && inp-48 <= counter.plancount+1) {
+            return inp-48-2;
+        } 
+        else {
+            checkerror =1;
+            depositplanselect();   
+            }
+		}
+	else{
+		switch(toupper(inp)){
+			case 'B':
+				home();
+				break;
+			default:
+				checkerror=1;
+    	depositplanselect();
+
+		}
 	}
 }

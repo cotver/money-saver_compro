@@ -44,7 +44,7 @@ void usercall(){
 }
 
 // write new user to user.txt
-void createuser(char username[71], char password[71], char name[200], double balance){
+void createuser(){
 	strcpy(usercheck[counter.usercount].username, user.username);
 	strcpy(usercheck[counter.usercount].password, user.password);
 	strcpy(usercheck[counter.usercount].name, user.name);
@@ -119,6 +119,19 @@ void planwrite(){
     	fprintf(pla, "%.2lf\t%s\t%.2lf\n", plan[i].goal, plan[i].description, plan[i].current);
     }
     fclose(pla);
+}
+
+void deleteplan(int select){
+	int i;
+	FILE *pla;
+    pla = fopen(planfilename, "w");
+    for(i = 0; i < counter.plancount; i++){
+    	if(i != select){
+    		fprintf(pla, "%.2lf\t%s\t%.2lf\n", plan[i].goal, plan[i].description, plan[i].current);
+    	}
+    }
+    fclose(pla);
+    plancall();
 }
 
 void deleteAccount(){

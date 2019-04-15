@@ -11,7 +11,7 @@ void recordpage(){
     	centertext("(Up to 50 character)");
     }
     else if(counter.phasecount == 1){
-    	centertext("Please Enter your amont");
+    	centertext("Please Enter your amount");
     	centertext("(If Expense Enter Negative number)");
     }
     else{

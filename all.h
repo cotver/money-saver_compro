@@ -33,7 +33,7 @@ void logtext(char text[69], char inp[69]);//
 
 
 // system
-// user login/logout
+// user login/register/logout
 void loginphase();
 void regisphase();
 void regisload();
@@ -59,7 +59,7 @@ void recordpage();
 
 // call/create/delete data
 void usercall();
-void createuser(char username[71], char password[71], char name[200], double balance);
+void createuser();
 void creatfilename();
 void recordcall();
 void userwrite();
@@ -67,13 +67,21 @@ void recordwrite();
 void plancall();
 void planwrite();
 void get_time();
+void deleteplan(int select);
 void deleteAccount();
 
 void savingaccount();
 void savingpage(int page, int pages);
 void createplan();
 void planfull();
-void planselect();
+int planselect();
+void deposit();
+int depositplanselect();
+void withdraw();
+void EditPlan();
+void editsuccess();
+void editdescription(int select);
+void editgoal(int select);
 
 int checkerror; //to check error
 

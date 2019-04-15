@@ -35,7 +35,7 @@ void loginphase(){
                     if(strcmp(usercheck[i].password, user.password)==0){
                         strcpy(user.name, usercheck[i].name);
                         user.balance = usercheck[i].balance;
-
+                        user.savingbalance = usercheck[i].savingbalance;
                         userorder = i;
 
                         loginload();
@@ -212,7 +212,7 @@ void regisload(){
         printf("|                                                                    ***                                                                    |\n");
         printf("|                                                                  *******                                                                  |\n");
         if(counter.phasecount==2){
-            createuser(user.username, user.password, user.name, user.balance);
+            createuser();
             creatfilename();
         }
     }
