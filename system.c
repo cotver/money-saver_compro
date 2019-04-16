@@ -44,7 +44,7 @@ void dashpage(int page, int pages){
 	userhead("Your Balance", user.balance);
 	printf("| Date         | Time         | Description                                                  | Income       | Expenses     | Balance        |\n");
 	fullborder();
-	if((page == pages || pages == 0) && counter.recordcount%25!=0){
+	if(((page == pages) && (counter.recordcount%25!=0)) || pages == 0){
 		for(int i = (page-1)*25;i<counter.recordcount;i++){
 			printf("| %02d/%02d/%04d   | %02d:%02d:%02d     | %-61s| %13.2lf| %13.2lf| %15.2lf|\n", record[i].day, record[i].month, record[i].year, record[i].hour, record[i].min, record[i].sec, record[i].description, record[i].income, record[i].expense, record[i].balance);
 		}
