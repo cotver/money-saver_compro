@@ -1,11 +1,10 @@
 compiler = gcc
 versions = -std=c99
 object = main.o border.o gettime.o login.o system.o datacall.o record.o plan.o
-exec_file = a
+exec_file = MoneySaver
 
 $(exec_file): $(object)
-	$(compiler) $(versions) $(object) -o $(exec_file) -lm
-	-rm *.o
+	$(compiler) $(versions) $(object) -o $(exec_file) -lm -rm *.o
 
 main.o: main.c all.h
 	$(compiler) $(versions) -c main.c
