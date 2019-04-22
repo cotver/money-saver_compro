@@ -45,16 +45,30 @@ void logout();
 void start();
 void home();
 void quit();
+//main account
 void Dashboard();
 void dashpage(int page, int pages);
 void accountset();
 void passwordchange();
 void arerusure();
 void goodbye();
-
+//saving account
+void savingaccount();
+void savingpage(int page, int pages);
+void createplan();
+void planfull();
+int planselect();
+void deposit();
+int depositplanselect();
+void withdraw();
+void EditPlan();
+void editsuccess();
+void editdescription(int select);
+void editgoal(int select);
 // record page
 void addrecord();
 void recordpage();
+
 
 
 // call/create/delete data
@@ -70,18 +84,6 @@ void get_time();
 void deleteplan(int select);
 void deleteAccount();
 
-void savingaccount();
-void savingpage(int page, int pages);
-void createplan();
-void planfull();
-int planselect();
-void deposit();
-int depositplanselect();
-void withdraw();
-void EditPlan();
-void editsuccess();
-void editdescription(int select);
-void editgoal(int select);
 
 int checkerror; //to check error
 
@@ -122,7 +124,7 @@ struct record{ //record INCOME/EXPENSE
 	double income;
 	double expense;
 	double balance;
-}record[Max_Record], inprecord, saverec;// save all record || input a new record || save record
+}record[Max_Record], inprecord, saverec;// save all record || input a new record || save record to sort new record
 
 
 struct time{ //save current time
@@ -138,4 +140,4 @@ struct plan{ //plan for save money
 	double goal;
 	double current;
 	char description[50];
-}plan[Max_Plan], inpplan;
+}plan[Max_Plan], inpplan; // save all plan || save input plan to create new
