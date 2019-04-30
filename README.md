@@ -17,7 +17,8 @@
 > ภาพประกอบคอมไพล์โดยใช้Cygwin
 
 # How to use ![](img/how.png)
-สามารถรับชมวิดีโอสอนการใช้งานโปรแกรม [ที่นี่](https://www.youtube.com/watch?v=gM4BiXVo3oo&list=RDgM4BiXVo3oo&start_radio=1)
+ท่านสามารถรับชมวิดีโอสอนการใช้งานโปรแกรม **[ที่นี่](https://www.youtube.com/watch?v=NtKG8CkagG8)** 	:mag:
+
 
 ![Stylish Portfolio Preview](https://github.com/cotver/money-saver_compro/blob/master/img/pro.png)
 
@@ -114,7 +115,7 @@
 | --| -----| -----| -----|
 | ![](https://github.com/cotver/money-saver_compro/blob/master/img/gloy.jpg) | น.ส.กนกพรรณ ตันนิธิสถาพร | 61070002 |[@Ganokpan](https://github.com/Ganokpan)
 | ![](https://github.com/cotver/money-saver_compro/blob/master/img/boy.jpg) | นายธนโชติ จิรกิตติ์สกุล | 61070069 |[@cotver](https://github.com/cotver)
-| ![](https://github.com/cotver/money-saver_compro/blob/master/img/nemin.jpg) | นายเนมินทร์ รุ่งศรีทอง | 61070107 |[@nemin555](https://github.com/nemin555)
+| ![](https://github.com/cotver/money-saver_compro/blob/master/img/517.jpg) | นายเนมินทร์ รุ่งศรีทอง | 61070107 |[@nemin555](https://github.com/nemin555)
 | ![](https://github.com/cotver/money-saver_compro/blob/master/img/ploy.jpg) | นางสาวปนัดดา อนันต์ | 61070112 |[@pickapp112](https://github.com/pickapp112)
 
 
