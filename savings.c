@@ -60,9 +60,7 @@ void savingpage(int page, int pages){
 	printf("| Description                                                                        | success(%%)                                           |\n");
 	fullsmallborder();
 	if(((page == pages ) && (counter.plancount%3!= 0)) || pages == 0){
-		printf("%d\n", counter.plancount);
 		for(int i = (page-1)*3;i<counter.plancount;i++){
-			printf("%d\n", i);
 			printf("|                                                                                    |                                                      |\n");
 			int percen = (plan[i].current/plan[i].goal)*100, tube = percen/2;
 			printf("| %-83s| %26.2lf/%-26.2lf|\n", "", plan[i].current, plan[i].goal);
